@@ -158,12 +158,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function checkContainer() {
     var el = document.getElementById('status');
     var loaded = !!(window.google_tag_manager && window.google_tag_manager[CONTAINER]);
-    if (loaded) {
+    var preview = /gtm_debug=/.test(location.search) ||
+      performance.getEntriesByType('resource').some(function (e) { return /gtm_auth=|gtm_preview=/.test(e.name); });
+    if (loaded && preview) {
       el.className = 'status ok';
-      el.innerHTML = '✅ Container <code>' + CONTAINER + '</code> carregado (modo Preview). Pode clicar nos botões e acompanhar no Tag Assistant.';
+      el.innerHTML = '✅ Container <code>' + CONTAINER + '</code> carregado em modo Preview. Pode clicar nos botões e acompanhar no Tag Assistant.';
     } else {
       el.className = 'status warn';
-      el.innerHTML = '⚠️ Container <code>' + CONTAINER + '</code> não carregou. Isso é esperado fora do modo Preview: o container não está publicado. Abra primeiro o <strong>link de Preview</strong> que você recebeu e entre nesta página por ele.';
+      el.innerHTML = '⚠️ Esta janela não está em modo Preview, então a configuração de teste não está ativa. Abra primeiro o <strong>link de Preview</strong> que você recebeu, clique em <strong>Conectar</strong> e use a janela que o Tag Assistant abrir.';
     }
   }
   window.addEventListener('load', function () { setTimeout(checkContainer, 1500); });

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Página de teste — envelope v3.2 · GTM-W8T2H3LJ</title>
+<!-- Google Tag Manager (container de teste sandbox-analytics, NÃO publicado: só carrega em modo Preview) -->
+<script>
+window.dataLayer = window.dataLayer || [];
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8T2H3LJ');
+</script>
+<!-- End Google Tag Manager -->
+<style>
+  :root { --fg:#1d1d1f; --muted:#5f6368; --line:#dadce0; --bg:#fafafa; --accent:#1a73e8; --ok:#188038; --warn:#b06000; }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--fg); background:var(--bg); margin:0; line-height:1.5; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  h2 { font-size: 1.05rem; margin: 28px 0 8px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  .status { padding: 10px 14px; border-radius: 8px; border:1px solid var(--line); background:#fff; font-size:.92rem; }
+  .status.ok { border-color: var(--ok); }
+  .status.warn { border-color: var(--warn); }
+  .ctx { font-size:.88rem; color:var(--muted); margin-top:8px; }
+  .ctx code { color: var(--fg); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; display:grid; grid-template-columns: 220px 1fr; gap:14px; align-items:start; }
+  .card.opt { border-style: dashed; }
+  button { font: inherit; padding:10px 12px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; width:100%; text-align:left; }
+  .card.opt button { background:#fff; color:var(--accent); }
+  button:active { transform: translateY(1px); }
+  .card p { margin:0; font-size:.92rem; }
+  .card p + p { margin-top:6px; color:var(--muted); }
+  pre { background:#202124; color:#e8eaed; padding:12px; border-radius:8px; font-size:.8rem; overflow:auto; max-height: 360px; margin:0; }
+  .note { font-size:.86rem; color:var(--muted); border-left:3px solid var(--line); padding-left:10px; }
+  @media (max-width: 640px) { .card { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Página de teste do envelope de eventos v3.2</h1>
+  <p class="sub">Container de teste <code>GTM-W8T2H3LJ</code> (sandbox-analytics)</p>
+
+  <div id="status" class="status">Verificando se o container carregou…</div>
+  <div class="ctx">Rota atual da “SPA”: <code id="route">/</code> · App ativo: <code id="activeApp">—</code></div>
+
+  <h2>O que esta página prova (e o que não prova)</h2>
+  <p class="note">Prova que um <code>dataLayer.push</code> no formato do contrato v3.2 é lido pelo container de teste: o acionador genérico dispara a tag nos eventos do contrato e ignora os eventos internos do GTM (<code>gtm.js</code>, <code>gtm.dom</code>, <code>gtm.load</code>). <strong>Não envia dado a lugar nenhum</strong>: a única tag do container escreve no console do navegador. Não há GA4, não há receptor, não há lake. Todos os IDs são fictícios; nenhum e-mail, nome, CPF, CNPJ ou IP.</p>
+
+  <h2>Botões</h2>
+
+  <div class="card">
+    <button id="btnA">a. Acessar o app A<br><small>product_accessed · menu</small></button>
+    <div>
+      <p><strong>Prova:</strong> o evento de referência com o núcleo completo, <code>properties: {entry_point: 'menu'}</code> e <code>_clear: true</code> aciona a tag uma vez.</p>
+      <p>No Tag Assistant: o evento aparece na lista à esquerda; aba Tags = “Tags disparadas”; aba Variables mostra o núcleo e o properties.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <button id="btnB">b. Trocar para o app B<br><small>mudança de rota + product_accessed</small></button>
+    <div>
+      <p><strong>Prova:</strong> numa SPA, a troca de app é uma mudança de rota (<code>history.pushState</code>), sem recarregar a página. O <code>product_accessed</code> dispara de novo com outro <code>app_id</code>, e a mudança de rota em si (<code>gtm.historyChange</code>, se aparecer) não aciona a tag.</p>
+      <p>Confira na aba Variables que o <code>app_id</code> mudou e que o <code>client_event_id</code> é novo.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <button id="btnC">c. Emitir um CT-e (ilustrativo)<br><small>cte_issued · user</small></button>
+    <div>
+      <p><strong>Prova:</strong> um evento de valor usa o mesmo envelope e o mesmo acionador, sem configuração nova no container: <code>properties: {object_type: 'cte', trigger_source: 'user'}</code>.</p>
+      <p>Na aba Variables, o <code>entry_point</code> do evento anterior <em>não</em> aparece no properties, porque o <code>_clear</code> limpou o bloco.</p>
+    </div>
+  </div>
+
+  <div class="card opt">
+    <button id="btnD">d. (opcional) Push sem núcleo<br><small>demonstra a herança</small></button>
+    <div>
+      <p><strong>Prova (comportamento conhecido, item 31):</strong> um push que só tem <code>event</code>, feito depois de um push do contrato, <em>também</em> aciona a tag, porque o GTM guarda o <code>schema_version</code> e o resto do núcleo no modelo interno.</p>
+      <p>Na aba Variables, o <code>client_event_id</code> é o mesmo do evento anterior: é isso que permite à deduplicação da Silver descartá-lo. Por isso o contrato exige o núcleo completo em todo push.</p>
+    </div>
+  </div>
+
+  <h2>O que esta página enviou ao dataLayer</h2>
+  <pre id="log">(nada ainda)</pre>
+</main>
+
+<script>
+(function () {
+  var CONTAINER = 'GTM-W8T2H3LJ';
+  // IDs fictícios (GUIDs inventados para o teste; não correspondem a ninguém)
+  var USER_ID = '7f3c2a10-0000-4000-8000-00000000a001';
+  var ACCOUNT_ID = '5b1e9d40-0000-4000-8000-00000000c001';
+  var APP_A = 'app-demo-a';
+  var APP_B = 'app-demo-b';
+  var activeApp = null;
+  var logLines = [];
+
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  function push(obj) {
+    window.dataLayer.push(obj);
+    var t = new Date().toLocaleTimeString('pt-BR');
+    logLines.unshift('// ' + t + '\ndataLayer.push(' + JSON.stringify(obj, null, 2) + ');');
+    document.getElementById('log').textContent = logLines.join('\n\n');
+  }
+
+  function envelope(event, appId, properties) {
+    return {
+      event: event,
+      schema_version: '1',
+      user_id: USER_ID,
+      account_id: ACCOUNT_ID,
+      app_id: appId,
+      client_event_id: uuid(),
+      properties: properties,
+      _clear: true
+    };
+  }
+
+  function setRoute(path, appId) {
+    try { history.pushState({ app: appId }, '', '#' + path); } catch (e) {}
+    activeApp = appId;
+    document.getElementById('route').textContent = path;
+    document.getElementById('activeApp').textContent = appId;
+  }
+
+  document.getElementById('btnA').addEventListener('click', function () {
+    setRoute('/apps/' + APP_A, APP_A);
+    push(envelope('product_accessed', APP_A, { entry_point: 'menu' }));
+  });
+
+  document.getElementById('btnB').addEventListener('click', function () {
+    var next = activeApp === APP_B ? APP_A : APP_B;
+    setRoute('/apps/' + next, next);
+    push(envelope('product_accessed', next, { entry_point: 'menu' }));
+  });
+
+  document.getElementById('btnC').addEventListener('click', function () {
+    var appId = activeApp || APP_A;
+    push(envelope('cte_issued', appId, { object_type: 'cte', trigger_source: 'user' }));
+  });
+
+  document.getElementById('btnD').addEventListener('click', function () {
+    push({ event: 'push_sem_nucleo' });
+  });
+
+  // Status do container: sem Preview, o gtm.js de um container não publicado não carrega (esperado).
+  function checkContainer() {
+    var el = document.getElementById('status');
+    var loaded = !!(window.google_tag_manager && window.google_tag_manager[CONTAINER]);
+    if (loaded) {
+      el.className = 'status ok';
+      el.innerHTML = '✅ Container <code>' + CONTAINER + '</code> carregado (modo Preview). Pode clicar nos botões e acompanhar no Tag Assistant.';
+    } else {
+      el.className = 'status warn';
+      el.innerHTML = '⚠️ Container <code>' + CONTAINER + '</code> não carregou. Isso é esperado fora do modo Preview: o container não está publicado. Abra primeiro o <strong>link de Preview</strong> que você recebeu e entre nesta página por ele.';
+    }
+  }
+  window.addEventListener('load', function () { setTimeout(checkContainer, 1500); });
+})();
+</script>
+</body>
+</html>
